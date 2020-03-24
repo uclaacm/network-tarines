@@ -12,6 +12,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 //const Anime = ReactAnime.default;
 
+
 function CodeSegment(props)
 {
   return (
@@ -27,7 +28,7 @@ function CodeSegment(props)
 
           <div className="field has-addons">
             <div className="control">
-              <input className="input is-warning" type="text" placeholder={props.codeWord} />
+              <input className="input is-warning" type="text" placeholder={props.codeWord}/>
             </div>
             <a class="button is-warning">TODO!</a>
           </div>
@@ -37,17 +38,16 @@ function CodeSegment(props)
 
         <div class="field is-grouped">
         <p class="control">
-            <a class="button is-light" href={props.backPage}>
+            <a href={props.backPage} class="button is-light" onClick={props.onBackClick}>
               Go back
             </a>
           </p>          
           <p class="control">
-            <a class="button is-primary" href={props.nextPage}>
+            <a class="button is-primary" onClick={props.onNextClick}>
               Next
-            </a>
+            </a> 
           </p>
         </div>
-
 
 
       </article>
@@ -90,11 +90,14 @@ function CodeSegment(props)
 class App extends Component {
   constructor(props){
     super(props);
+    this.handleNextClick = this.handleNextClick.bind(this);
+    this.handleBackClick = this.handleBackClick.bind(this);
     this.state = {
       name: "",
       others: ["Abigal", "Ismael", "Valeria"], //update backend
-      show: false
-    }
+      show: false,
+      segmentState: 1
+    } 
   }
 
 
@@ -104,9 +107,57 @@ class App extends Component {
     //BACKEND
   }
 
+  handleNextClick = (e) =>
+  {
+    this.setState({segmentState: (this.state.segmentState+1)})
+  }
+
+  handleBackClick = (e) =>
+  {
+    this.setState({segmentState: (this.state.segmentState-1)})
+  }
 
 
-  render(){
+  render()
+  {
+    let segment = (
+      <CodeSegment 
+        id="Step1"
+        //nextPage="#Step2"
+        backPage="#NameInput"
+        stepNumber="First," 
+        codeWord="open"
+        step="We need to post a message to our website - type “open” to open a new message." 
+        onNextClick = {this.handleNextClick}
+        /> );
+    
+    if(this.state.segmentState === 2)
+    {
+      segment = (
+      <CodeSegment 
+            id="Step2"
+            //nextPage="#Step3"
+            backPage="#Step1"
+            stepNumber="Next," 
+            codeWord="DONE"
+            step="Now we have to make sure that the last message was taken care of!
+            Type  “DONE” so the code can check if the computer is done with the last message"
+            onNextClick = {this.handleNextClick}
+            onBackClick = {this.handleBackClick}  />);
+    }
+    else if(this.state.segmentState === 3)
+    {
+      segment = (
+        <CodeSegment 
+        id="Step3"
+        //nextPage="#"
+        backPage="#Step2"
+        stepNumber="Last but not LEAST" 
+        codeWord={this.state.name}
+        step="Last one: we’re trying to send your name, so enter your name here!"
+        onBackClick = {this.handleBackClick} />);
+    }
+
     return (
       <div className="App">
       <section class="hero is-warning is-fullheight">
@@ -137,7 +188,6 @@ class App extends Component {
         </div>
       </section>
         
-
       <NameInput
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
       />
@@ -145,8 +195,8 @@ class App extends Component {
             <section id="CodeSection" class="section">
             <div class="container">
             <h2 class="subtitle"> Hi {this.state.name}! Please help us send your name to our website using code! </h2>
-
-            <CodeSegment 
+            {segment}
+            {/*<CodeSegment 
             id="Step1"
             nextPage="#Step2"
             backPage="#NameInput"
@@ -168,7 +218,7 @@ class App extends Component {
             backPage="#Step2"
             stepNumber="Last but not LEAST" 
             codeWord={this.state.name}
-            step="Last one: we’re trying to send your name, so enter your name here!" />
+            step="Last one: we’re trying to send your name, so enter your name here!" />*/}
 
           </div>          
           
