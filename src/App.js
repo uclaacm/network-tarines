@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Anime from 'react-anime';
 import './App.sass';
 import './App.css';
 import NameInput from './NameInput/NameInput';
-import Animation from './Animations';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-//import { TransitionGroup, Transition } from 'react-transition-group';
-//import anime from '../node_modules/animejs/lib/anime.es.js';
-//'font-awesome/css/font-awesome.min.css';
-//import { faLemon } from '@fortawesome/free-solid-svg-icons';
-
-//const Anime = ReactAnime.default;
+import CardAnimation from './CardAnimation';
+import RequestDemo from './RequestDemo';
+import SocketDemo from './SocketDemo';
+import OnlineDemo from './OnlineDemo';
 
 function CodeSegment(props)
 {
   return (
   <section id={props.id} class="hero is-fullheight">
-      <div class="hero-body">
+    <div class="hero-body">
         <div class="container">
-
-
     <div class="tile is-ancestor">
     <div class="tile is-parent">
       <article class="tile is-child box">
         <h2 class="subtitle"> <strong>{props.stepNumber}</strong></h2>
-
           <div className="field has-addons">
             <div className="control">
               <input className="input is-warning" type="text" placeholder={props.codeWord} />
@@ -32,7 +26,7 @@ function CodeSegment(props)
             <a class="button is-warning">TODO!</a>
           </div>
         <div class="content">
-  <p>{props.step}</p>
+          <p>{props.step}</p>
         </div>
 
         <div class="field is-grouped">
@@ -72,27 +66,12 @@ function CodeSegment(props)
   );
 }
 
-
-// var myAnimation = anime({
-//   targets: ['.blue', '.green'],
-//   translateX: '13rem',
-//   rotate: 180,
-//   borderRadius: '8px',
-//   duration: 2000,
-//   loop: true
-// });
-
-
-//UNDERSTAND CANVAS
-
-
-
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       name: "",
-      others: ["Abigal", "Ismael", "Valeria"], //update backend
+      others: ["Abigal", "Ismael", "Valeria"], //BACKEND
       show: false
     }
   }
@@ -101,38 +80,44 @@ class App extends Component {
   handleNameSubmit = (enteredName) => {
     this.setState({name: enteredName});
     //GO TO NEXT PAGE. 
-    //BACKEND
+    //BACKEND, give name to backend.
   }
-
-
 
   render(){
     return (
       <div className="App">
       <section class="hero is-warning is-fullheight">
         <div class="hero-head">
-          <h1 class="title">network-tarines</h1>
-
-
+        <Anime opacity={[0, 1]} translateY={'1em'} delay={500}>
+          <h1 class="title">Websites on the Internet</h1>
+          </Anime>
         </div>
         <div class="hero-body">
           <div class="container">
-          <Animation></Animation>
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={(e, i) => i * 1000}>
+
+          <span className="introContainer">
+            <Anime 
+            duration={5000}
+            easing="linear"
+            rotate={360}
+              loop={true}
+            >
+              <div className="introAnimation"/>
+            </Anime>
+          </span>
             <h1 class="title">
               Hey there!
             </h1>
+            
             <h2 class="subtitle">
             The internet can be a bit tricky, so we’re here to help you figure out how it works.
-  Are you <a href="https://teachla.uclaacm.com/">
-              ready? 
-            </a>
-            </h2>
-            <i class="fas fa-lemon"></i>
+            Are you <a href="https://teachla.uclaacm.com/"> ready?   </a></h2>
 
             <div className="buttons is-centered">
                 <a className="button is-link is-rounded is-large" href="#NameInput">Let's go!</a>
               </div>
-
+          </Anime>
           </div>
         </div>
       </section>
@@ -142,7 +127,10 @@ class App extends Component {
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
       />
 
-            <section id="CodeSection" class="section">
+
+      <div class="container">
+      </div>
+          <section id="CodeSection" class="section">
             <div class="container">
             <h2 class="subtitle"> Hi {this.state.name}! Please help us send your name to our website using code! </h2>
 
@@ -153,6 +141,11 @@ class App extends Component {
             stepNumber="First," 
             codeWord="open"
             step="We need to post a message to our website - type “open” to open a new message."  />
+
+
+          
+
+
           <CodeSegment 
             id="Step2"
             nextPage="#Step3"
@@ -161,6 +154,10 @@ class App extends Component {
             codeWord="DONE"
             step="Now we have to make sure that the last message was taken care of!
             Type  “DONE” so the code can check if the computer is done with the last message"  />
+
+
+
+
 
         <CodeSegment 
             id="Step3"
@@ -174,55 +171,16 @@ class App extends Component {
           
           </section>
 
+ 
+        <RequestDemo/>
+        <SocketDemo name={this.state.name}/>
 
-          <section class="hero is-warning is-fullheight">
-          <h1 class="title has-text-centered">Demo Animation goes here.</h1>
-
-
-          {/* <div class="blue" style={styles.circle} />
-           <div class="green"> green </div> */}
-
-
-        {/* <Anime easing="easeOutElastic"
-           loop={true}
-           duration={1000}
-           direction="alternate"
-           delay={(el, index) => index * 240}
-           translateX='13rem'
-           scale={[.75, .9]}>
-        <div className="blue"/>
-        <div className="green"/>
-        <div className="red"/>
-      </Anime> */}
-
-
-          <span class="icon">
-            <i className="fa fa-desktop"></i>
-          </span>
-
-          
-
-          </section>
-
-
-                <div className="field">
-                  <p className="control">
-                    <span className="select is-centered">
-                      <select>
-                        <option>Select dropdown</option>
-                        <option>{this.state.others[0]}</option>
-                        <option>{this.state.others[1]}</option>
-                        <option>{this.state.others[2]}</option>                                                
-                      </select>
-                    </span>
-                  </p>
-                </div>
-
+        <OnlineDemo others={this.state.others} name={this.state.name}/>
         <footer class="footer">
         <div class="content has-text-centered">
           <p>
             Built by UCLA's ACM TeachLA! 
-            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>. 
+            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>, <a href="https://alain.xyz/libraries/react-anime"><strong>React-Anime</strong></a>. 
           </p>
         </div>
       </footer>
@@ -236,31 +194,4 @@ class App extends Component {
   }
 }
 
-// const styles = {
-//   circle: {
-//     width: 64,
-//     hieght: 64,
-//     borderRaiuds: '100%',
-//   },
-// };
-
 export default App;
-
-
-/*
-
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
- */

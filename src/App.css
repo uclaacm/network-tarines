@@ -2,38 +2,78 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.message {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color:#fa7c91;
+  text-align:center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.introAnimation {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 90px;
+  width: 90px;
+  background-color: #fa7c91;
+  float:right;
+}
+
+.introContainer {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 50px;
+}
+
+ .codeAnimateContainer {
+  display:inline-block;
+  width: 90%;
+}  
+
+
+
+.requestContainer {
+  height: 400px;
+  /*  HOW DOES CENTERING WORK.*/
+}
+.requestAnimateContainer {
+  position: relative;
+  width: 800px;
+  height: 300px;
+}
+
+.requestTextContainer {
+  justify-content: center;
+  height: 100px;
+  padding: 20px;
+  width: 800px;
+}
+
+.socketContainer{
+  height: 700px;
+  /* width: 800px; */
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 90px;
+}
+
+.socketAnimateContainer{
+  position: relative;
+  width: 800px;
+  height: 300px;
 }
 
 
-.App-link {
-  color: #61dafb;
+/* not in use */
+.onlineContainer{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  position: relative;
+  height: 800px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.userContainer{
+  position: relative;
+  width: 100px;
+  height: 100px;
 }
