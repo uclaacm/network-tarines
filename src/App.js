@@ -16,7 +16,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 function CodeSegment(props)
 {
   return (
-  <section id={props.id} class="hero is-fullheight">
+  <section id="CodeSegment" class="hero is-fullheight">
       <div class="hero-body">
         <div class="container">
 
@@ -28,7 +28,7 @@ function CodeSegment(props)
 
           <div className="field has-addons">
             <div className="control">
-              <input className="input is-warning" type="text" placeholder={props.codeWord}/>
+              <input id="inputCode" className="input is-warning" type="text" value={props.inputCode} onChange={props.onInputChange} placeholder={props.codeWord}/>
             </div>
             <a class="button is-warning">TODO!</a>
           </div>
@@ -38,12 +38,12 @@ function CodeSegment(props)
 
         <div class="field is-grouped">
         <p class="control">
-            <a href={props.backPage} class="button is-light" onClick={props.onBackClick}>
+            <a class="button is-light" onClick={props.onBackClick} href={props.reference}>
               Go back
             </a>
           </p>          
           <p class="control">
-            <a class="button is-primary" onClick={props.onNextClick}>
+            <a class="button is-primary" onClick={props.onNextClick} href={props.nextPage}>
               Next
             </a> 
           </p>
@@ -92,11 +92,14 @@ class App extends Component {
     super(props);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       name: "",
       others: ["Abigal", "Ismael", "Valeria"], //update backend
       show: false,
-      segmentState: 1
+      segmentState: 1,
+      input: "",
+      refer: "#NameInput"
     } 
   }
 
@@ -109,12 +112,35 @@ class App extends Component {
 
   handleNextClick = (e) =>
   {
-    this.setState({segmentState: (this.state.segmentState+1)})
+    if(this.state.segmentState === 0)
+    {
+      this.setState({segmentState: (this.state.segmentState+2)})
+    }
+    else
+    {
+      this.setState({segmentState: (this.state.segmentState+1)})
+    }
+    this.setState({input : ""})
   }
 
   handleBackClick = (e) =>
   {
-    this.setState({segmentState: (this.state.segmentState-1)})
+    if(this.state.segmentState === 1)
+    {
+      this.setState({refer : "#NameInput"})
+    }
+    else
+    {
+      this.setState({refer : "#CodeSegment"})
+    }
+    this.setState({segmentState : (this.state.segmentState-1)})
+    //this.handleChangeReference();
+    //this.setState({name : this.state.segmentState})
+  }
+
+  handleInputChange = (e) =>
+  {
+    this.setState({input : e.target.value})
   }
 
 
@@ -122,45 +148,54 @@ class App extends Component {
   {
     let segment = (
       <CodeSegment 
-        id="Step1"
-        //nextPage="#Step2"
-        backPage="#NameInput"
+        //id="Step1"
+        nextPage="#CodeSegment"
         stepNumber="First," 
         codeWord="open"
         step="We need to post a message to our website - type “open” to open a new message." 
+        inputCode={this.state.input}
+        reference = {this.state.refer}
         onNextClick = {this.handleNextClick}
+        onBackClick = {this.handleBackClick}
+        onInputChange = {this.handleInputChange}
         /> );
     
     if(this.state.segmentState === 2)
     {
       segment = (
       <CodeSegment 
-            id="Step2"
-            //nextPage="#Step3"
-            backPage="#Step1"
+            //id="Step2"
+            nextPage="#CodeSegment"
+            backPage="#CodeSegment"
             stepNumber="Next," 
             codeWord="DONE"
             step="Now we have to make sure that the last message was taken care of!
             Type  “DONE” so the code can check if the computer is done with the last message"
+            inputCode={this.state.input}
+            reference = {this.state.refer}
             onNextClick = {this.handleNextClick}
-            onBackClick = {this.handleBackClick}  />);
+            onBackClick = {this.handleBackClick}
+            onInputChange = {this.handleInputChange}  />);
     }
     else if(this.state.segmentState === 3)
     {
       segment = (
         <CodeSegment 
-        id="Step3"
+        //id="Step3"
         //nextPage="#"
-        backPage="#Step2"
+        backPage="#CodeSegment"
         stepNumber="Last but not LEAST" 
         codeWord={this.state.name}
         step="Last one: we’re trying to send your name, so enter your name here!"
-        onBackClick = {this.handleBackClick} />);
+        reference = {this.state.refer}
+        inputCode={this.state.input}
+        onBackClick = {this.handleBackClick}
+        onInputChange = {this.handleInputChange} />);
     }
 
     return (
       <div className="App">
-      <section class="hero is-warning is-fullheight">
+      <section id="intro" class="hero is-warning is-fullheight">
         <div class="hero-head">
           <h1 class="title">network-tarines</h1>
 
