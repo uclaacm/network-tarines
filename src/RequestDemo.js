@@ -8,13 +8,15 @@ class RequestDemo extends React.Component {
     super(props)
     this.state = {
       currStep: 1,
+      stepDelays: [500, 500, 2000, 4000, 3000],
+      graduate: 0,
     }
   }
 
   //next
   _next = () => {
     let currStep = this.state.currStep;
-    currStep = currStep >= 5? 5: currStep + 1
+    currStep = currStep >= 4? 4: currStep + 1
     this.setState({
       currStep: currStep
     })
@@ -41,12 +43,24 @@ class RequestDemo extends React.Component {
     return null;
   }
 
-  nextButton(){
+
+  prevButton2() {
     let currStep = this.state.currStep;
-    if(currStep !== 5){
+    if(currStep > 3){
+      return (
+        <a className="button is-rounded is-light" onClick={this._prev}> Go Back </a>
+      )
+    }
+    return null;
+  }
+
+  nextButton(){
+    var DELAY = this.state.stepDelays[this.state.currStep];
+    let currStep = this.state.currStep;
+    if(currStep < 3 ){
       return(
         <a className="button is-rounded is-primary" onClick={this._next}> 
-        <Anime easing="linear" loop={true} direction="alternate" opacity={['100%', '20%']}>
+        <Anime easing="linear" delay={DELAY} loop={true} direction="alternate" opacity={['100%', '20%']}>
           Next</Anime>
         </a>
       )
@@ -58,16 +72,45 @@ class RequestDemo extends React.Component {
     );
   }
 
+
+  nextButton2(){
+    var DELAY = this.state.stepDelays[this.state.currStep];
+    let currStep = this.state.currStep;
+    if(currStep == 3){
+      return(
+        <a className="button is-rounded is-primary" onClick={this._next}> 
+        <Anime easing="linear" delay={DELAY} loop={true} direction="alternate" opacity={['100%', '20%']}>
+          Next</Anime>
+        </a>
+      )
+    }
+    else if(currStep == 4){
+    return(
+      <Anime easing="linear" loop={true} direction="alternate" opacity={['100%', '20%']}>
+      <FontAwesomeIcon icon={faChevronDown} size="2x" transform="" ></FontAwesomeIcon>
+      </Anime>
+    )}
+    return null;
+  }
+
+  handleScroll2(){
+    return(
+      <p>Testing</p>
+    )
+  }
+
     render(){
       const name = this.props.name;
         return(          
-          
-            <section class="hero is-fullheight" > 
+          <React.Fragment>
+            <section class="hero is-large" > 
               <div class="hero-body">
-                  <div class="container" className="requestContainer">
+                  <div class="container">
+                  <Anime easing="linear" loop="false" opacity={['0%', '100%']}>
                           <Step1 
                           currStep = {this.state.currStep}
                           />
+                          </Anime>
                           <Step2 
                           currStep = {this.state.currStep}
                           name = {name}
@@ -75,27 +118,64 @@ class RequestDemo extends React.Component {
                           <Step3
                           currStep = {this.state.currStep}
                           />
-                          <Step4 
-                          currStep = {this.state.currStep}
-                          />
-                          <Step5 
-                          currStep = {this.state.currStep}
-                          
-                          />  
                           <div style={{padding: '40px'}}>
                             {this.prevButton()}
                           
                               {this.nextButton()}
                           </div>
+
+                          
                   </div>                  
                 </div>
              </section>
-        
+
+
+             
+             <section class="hero is-fullheight is-warning" onScroll={this.handleScroll2} > 
+             <div class="hero-body">
+                  <div class="container">
+      <Step4 
+      currStep = {this.state.currStep} />
+                    
+      <Step5 
+      currStep = {this.state.currStep}                
+      />  
+{this.prevButton2()}
+      {this.nextButton2()}
+      </div>                  
+                </div>
+
+              
+             </section>
+             
+             </React.Fragment>
           
         )
     }
 }
 
+
+function Step(props){
+  return(
+    <React.Fragment>
+      <div class="container" className ="requestTextContainer">
+      <Anime opacity={[0, 1]} translateY={10} delay={200}>
+          <h2 class="subtitle">{props.text}</h2>
+          </Anime>
+      </div>
+     <div className="requestAnimateContainer">
+        <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
+        <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
+        </span>
+        {props.animation}
+        <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
+        <FontAwesomeIcon icon={faServer} size="9x" className="serverContainer" style={{position: 'absolute', right: '40px', top: '80px'}}/>
+    </div>
+    </React.Fragment>
+  )
+}
 
 //Ready to Send!
 function Step1(props){
@@ -104,29 +184,18 @@ function Step1(props){
   }
 
   return(
-    <React.Fragment>
-      <div class="container" className ="requestTextContainer">
-          <h2 class="subtitle">Now our website has to check that it received our request!
-          (and send a message back if it needs to)</h2>
-      </div>
-     <div className="requestAnimateContainer">
-        <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-        <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-        <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-        <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-        </span>
-        <Anime easing="linear" duration="900"
-          loop={true}
-          direction="alternate"
-          opacity={['100%', '20%']}
-        >
-          <FontAwesomeIcon icon={faChevronRight} size="2x" color="green" style={{position: 'absolute', left: '210px', top: '8rem'}}></FontAwesomeIcon>          
-        </Anime>
-
-        <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-        <FontAwesomeIcon icon={faServer} size="9x" className="serverContainer" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-    </div>
-    </React.Fragment>
+    <Step
+    currStep={props.currStep}
+    idNum={1}
+    text="Now our website has to check that it received our request! (and send a message back if it needs to)"
+    animation={
+      <Anime easing="linear" duration="900"
+      loop={true}
+      direction="alternate"
+       opacity={['100%', '20%']}>
+          <FontAwesomeIcon icon={faChevronRight} size="2x" color="#96bfd4" style={{position: 'absolute', left: '210px', top: '8rem'}}></FontAwesomeIcon>          
+        </Anime>}
+     />
   );
 }
 
@@ -136,62 +205,49 @@ function Step2(props){
   return null
   }
   return(
-// use user name at some point
-    <React.Fragment>
-    <div class="container" className ="requestTextContainer">
-        <h2 class="subtitle">Good job! You just sent us a message.</h2> 
-    </div>
-   <div className="requestAnimateContainer">
-      <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-      <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-      </span>
+    <Step
+    currStep={props.currStep}
+    idNum={2}
+    text="Good job! You just sent us a message."
+    animation={
+      <React.Fragment>
       <Anime easing="linear" duration="900"
-        loop={true}
-        translateY="-80px"
-        translateX="155px"
-        opacity={['30%','100%', '0%']}
-      >
-        <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '190px', top: '8rem'}}></FontAwesomeIcon>          
-      </Anime>
+      loop={true}
+      translateY="-80px"
+      translateX="155px"
+      opacity={['30%','100%', '0%']}
+    >
+      <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '190px', top: '8rem'}}></FontAwesomeIcon>          
+    </Anime>
 
-      <Anime easing="linear" duration="900"
-        loop={true}
-        translateY="80px"
-        translateX="155px"
-        opacity={['30%', '100%', '0%']}
-      >
-        <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
-      </Anime>      
-
-      <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-      <FontAwesomeIcon icon={faServer} size="9x" className="serverContainer" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-  </div>
-  </React.Fragment>
-
-
+    <Anime easing="linear" duration="900"
+      loop={true}
+      translateY="80px"
+      translateX="155px"
+      opacity={['30%', '100%', '0%']}
+    >
+      <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
+    </Anime>  
+    </React.Fragment>  
+    }
+     />
   )
 }
 
 //Frequent Updates
 function Step3(props){
-  if(props.currStep !== 3){
+  if(props.currStep < 3){
   return null
   }
   return(
     <React.Fragment>
-    <div class="container" className ="requestTextContainer">
-        <h2 class="subtitle">But wait! Other websites like chat sites (facebook messenger, google hangouts) 
-    need to update the page many times a second. Too much!</h2>
-    </div>
-   <div className="requestAnimateContainer">
-      <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-      <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-      </span>
-      <Anime easing="linear" duration="900"
+    <Step
+    currStep={props.currStep}
+    idNum={3}
+    text={<p>But wait! Other websites like chat sites (facebook messenger, google hangouts) need to update their page many times a second.</p>}
+    animation={
+      <React.Fragment>
+     <Anime easing="linear" duration="900"
         loop={true}
         direction="alternate"
         translateY="-80px"
@@ -209,36 +265,37 @@ function Step3(props){
         opacity={['30%', '100%', '0%']}
       >
         <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
-      </Anime>      
+      </Anime>  
+    </React.Fragment>  
+    }
+     />
+     <Anime
+      delay={2000} opacity={[0, 1]}
+    >
+      <h2 class="subtitle">That's a lot of messages to send in a short of amount of time. (scroll down)</h2>
+    </Anime>
 
-      <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-      <FontAwesomeIcon icon={faServer} size="9x" className="serverContainer" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-  </div>
-  </React.Fragment>
+    
+    </React.Fragment>
   )
 }
 
 
 //THIS IS CALLED. AN HTTP REQUEST.
 function Step4(props){
-  if(props.currStep !== 4){
+  //!== 4
+  if(props.currStep != 3){
     return null
   }
   return(
-    <React.Fragment>
-    <div class="container" className ="requestTextContainer">
-        <h2 class="subtitle">This is called an <strong>HTTP Request</strong>, and is used in almost every website.</h2>
-    </div>
-   <div className="requestAnimateContainer">
-      <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-      <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-      </span>
-      <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-      <FontAwesomeIcon icon={faServer} size="9x" style={{position: 'absolute', right: '40px', top: '80px'}}/>
 
-      <Anime easing="linear" duration="900"
+    <Step
+    currStep={props.currStep}
+    idNum={4}
+    text={<p>What we just did is called an <strong>HTTP Request</strong>, and it's used in almost every website.</p>}
+    animation={
+      <React.Fragment>
+     <Anime easing="linear" duration="900"
         loop={true}
         direction="alternate"
         translateY="-80px"
@@ -256,7 +313,7 @@ function Step4(props){
         opacity={['30%', '100%', '0%']}
       >
         <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
-      </Anime> 
+      </Anime>  
 
       <div class="columns is-mobile is-centered"style={{position: 'absolute', top: '120px', left: '215px'}}>
               <div class="column">
@@ -275,34 +332,24 @@ function Step4(props){
               </div>
             
       </div>
-
-  </div>
-
-    </React.Fragment>
+    </React.Fragment>  
+    } />
   );
 }
 
 function Step5(props){
-  if(props.currStep !== 5){
+  if(props.currStep != 4){
     return null
   }
   return(
-    <React.Fragment>
-   <div class="container" className ="requestTextContainer">
-        <h2 class="subtitle">This is bad and can <strong>crash</strong> our
-    website, so we use a different message-sending 
-    method called <strong>web sockets</strong>. Let's try it!. (Scroll Down!)</h2>
-    </div>
-   <div className="requestAnimateContainer">
-      <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-      <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-      <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-      </span>
-      <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-      <FontAwesomeIcon icon={faServer} size="9x" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-
-      <Anime easing="linear" duration="900"
+    <Step
+    currStep={props.currStep}
+    idNum={5}
+    text={<p>But if we use it all the time, it can <strong>crash</strong> our
+           website! This is bad. we send messages using something else –– they're called <strong>web sockets</strong>! </p>}
+    animation={
+      <React.Fragment>
+     <Anime easing="linear" duration="900"
         loop={true}
         direction="alternate"
         translateY="-80px"
@@ -320,7 +367,7 @@ function Step5(props){
         opacity={['30%', '100%', '0%']}
       >
         <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
-      </Anime> 
+      </Anime>  
 
       <div class="columns is-mobile is-centered"style={{position: 'absolute', top: '120px', left: '215px'}}>
               <div class="column">
@@ -330,7 +377,7 @@ function Step5(props){
                   <FontAwesomeIcon icon={faCircle} size="2x" transform="left-0"/>
                   <span class="fa-layers-text fa-inverse"> 1</span>
                 </span>                   */}
-                <p class="title is-5 is-primary">1. Open Connection</p>
+                <p class="title is-5">1. Open Connection</p>
                 </span>
                 <p class="title is-5">2. Send Connection</p>
 
@@ -339,11 +386,8 @@ function Step5(props){
               </div>
             
       </div>
-
-  </div>
-
-
-</React.Fragment>
+    </React.Fragment>  
+    } />
   )
 
 }

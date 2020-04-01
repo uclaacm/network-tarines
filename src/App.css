@@ -10,11 +10,15 @@
   text-align:center;
 }
 
+.code{
+  text-align: left;
+}
+
 .introAnimation {
   display: flex;
   height: 90px;
   width: 90px;
-  background-color: #fa7c91;
+  
   float:right;
 }
 
@@ -22,6 +26,15 @@
   display: flex;
   justify-content: center;
   padding: 50px;
+}
+
+.questMapContainer{
+    margin: auto;
+    /* left: 17%; */
+    position: relative;
+    width: 800px;
+    height: 220px;
+    /* background-color: floralwhite; */
 }
 
  .codeAnimateContainer {
@@ -33,15 +46,17 @@
 
 .requestContainer {
   height: 400px;
-  /*  HOW DOES CENTERING WORK.*/
+ 
 }
 .requestAnimateContainer {
+  margin: auto;
   position: relative;
   width: 800px;
   height: 300px;
 }
 
 .requestTextContainer {
+  margin: auto;
   justify-content: center;
   height: 100px;
   padding: 20px;
@@ -49,14 +64,14 @@
 }
 
 .socketContainer{
-  height: 700px;
-  /* width: 800px; */
+  height: 650px;
   padding-left: 10%;
   padding-right: 10%;
   padding-top: 90px;
 }
 
 .socketAnimateContainer{
+  margin: auto;
   position: relative;
   width: 800px;
   height: 300px;

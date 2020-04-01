@@ -69,6 +69,8 @@ class SocketDemo extends React.Component {
     render(){
         return(
           <React.Fragment>
+            <section class="hero is-large" > 
+              <div class="hero-body">
             <div class="container" className="socketContainer">
             <Anime easing="linear" loop="false" opacity={['0%', '100%']}>
               <Step1 
@@ -89,6 +91,8 @@ class SocketDemo extends React.Component {
               {this.prevButton()}
               {this.nextButton()}
               </div>
+              </div>
+              </section>
             </React.Fragment>
           
         )
@@ -96,54 +100,77 @@ class SocketDemo extends React.Component {
 }
 
 
+function Step(props){
+  return(
+    <React.Fragment>
+      <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <article class="tile is-child box notification is-warning is-12">
+                <div class="content has-text-left" className="socketAnimateContainer">
+                    <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
+                        <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
+                    </span>
+
+                    <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
+                    <FontAwesomeIcon icon={faServer} size="9x" style={{position: 'absolute', right: '40px', top: '80px'}}/>
+
+                    {props.animation}
+                </div>
+            </article>
+        </div>
+      </div>
+    {props.lowerHalf}
+  </React.Fragment>
+  )
+}
 
 function Step1(props){
   if(props.currStep !== 1){
     return null
     }
 
-  return(
-    <div class="tile is-ancestor">
-    <div class="tile is-parent is-vertical">
-      <article class="tile is-child box notification is-warning is-12">
-          <div class="content has-text-left" className="socketAnimateContainer">
-        <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-        <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-        <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-        <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-        </span>
-       
-        <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-        <FontAwesomeIcon icon={faServer} size="9x" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-   
-        <Anime easing="linear" duration="900"
-          loop={true}
-          direction="alternate"
-          opacity={['100%', '20%']}
-        >
-          <FontAwesomeIcon icon={faChevronRight} size="2x" color="green" style={{position: 'absolute', left: '210px', top: '8rem'}}></FontAwesomeIcon>          
-        </Anime>
+    return(
+      <Step 
+      animation={       
+      <React.Fragment>
+          <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
+          <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
+          <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
+          </span>
 
-
-          </div>
-        </article>
-      <article class="tile is-child box">
-        <h2 class="subtitle"> <strong>Enter our website so we can open a socket!</strong></h2>
-          <div className="field has-addons" style={{paddingLeft: '100px'}}>
-            <div className="control">
-              <input className="input is-warning is-rounded" type="text" placeholder="NetworkDemos.com" />
+          <Anime easing="linear" duration="900"
+            loop={true}
+            direction="alternate"
+            opacity={['100%', '20%']}
+          >
+            <FontAwesomeIcon icon={faChevronRight} size="2x" color="green" style={{position: 'absolute', left: '210px', top: '8rem'}}></FontAwesomeIcon>          
+          </Anime>
+      </React.Fragment> }
+      
+      lowerHalf={
+        <React.Fragment>
+            <div class="tile is-ancestor">
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <h2 class="subtitle"> <strong>Enter our website so we can open a socket!</strong></h2>
+                        <div className="field has-addons" >
+                            <div className="control" style={{ position: 'relative', margin: 'auto'}}>
+                                <input className="input is-warning is-rounded" type="text" placeholder="NetworkDemos.com" />
+                            </div>
+                        </div>
+                        <code> let socket = new WebSocket("____"); </code>
+                        <div class="content">
+                            <p>{props.step}</p>
+                        </div>
+                    </article>
+                </div>
             </div>
-          </div>
-          <code> let socket = new WebSocket("____"); </code>
-        <div class="content">
-          <p>{props.step}</p>
-        </div>
+        </React.Fragment>
 
-        
-      </article>
-    </div>
-  </div>
-  )
+      }
+      />
+
+    );
 }
 
 function Step2(props){
@@ -151,75 +178,76 @@ function Step2(props){
     return null
     }
 
-  return(
-    <React.Fragment>
-    <div class="tile is-ancestor">
-    <div class="tile is-parent is-vertical">
-      <article class="tile is-child box notification is-warning is-12">
-        <div class="content has-text-left">
+    return(
+      <Step
+      animation={
+          <React.Fragment>
+              <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
+                  <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
+              </span>
 
-          <div className="socketAnimateContainer">
-            <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-              <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-              <FontAwesomeIcon icon={faComment} size="3x" transform="right-40 up-20"></FontAwesomeIcon>
-              <FontAwesomeIcon icon={faCommentDots} size="3x" inverse transform="right-40 up-20"></FontAwesomeIcon>
-            </span>
-            <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-            <FontAwesomeIcon icon={faServer} size="9x" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-            <Anime easing="linear" duration="900"
-          loop={true}
-          direction="alternate"
-          opacity={['100%', '20%']}
-        >
-          <FontAwesomeIcon icon={faChevronRight} size="2x" color="green" style={{position: 'absolute', left: '210px', top: '8rem'}}></FontAwesomeIcon>          
-        </Anime>
-          </div>
+              <Anime easing="linear" duration="900"
+              loop={true}
+              direction="alternate"
+              opacity={['100%', '20%']}
+              >
+                  <FontAwesomeIcon icon={faChevronRight} size="2x" color="green" style={{position: 'absolute', left: '210px', top: '8rem'}}></FontAwesomeIcon>          
+              </Anime>
+          </React.Fragment>
+      }
+      lowerHalf={
+          <React.Fragment>
+          <Anime easing="linear" loop="false" opacity={[0,1]} delay={(e, i) => i * 1000}>
+              <div class="tile is-ancestor">
+                  <div class="tile is-parent">
+                      <article class="tile is-child box" style={{boxShadow: '0'}}>
+                          <h2 class="subtitle"> <strong>Here is our code that tells our computer what to do when we open a web socket!</strong></h2>
+                          
+                      </article>
+                  </div>
+              </div>
 
-        </div>
-      </article>
-      </div>
-  </div>
+              <div class="tile is-ancestor" style={{ justifyContent: 'center'}}>
+                  <Anime easing="linear" loop="false" opacity={[0,1]} delay={(e, i) => i * 1000}>
+                      <div class="tile is-parent">
+                          <article class="tile is-child box">
+                            <div className="code">
+                                <code>socket.onopen = function(e) {'{'} </code>
+                                <p><code>// do a flip </code></p>
+                                <p><code>};</code></p>
+                            </div>
+                          </article>
+                      </div>
 
-  <Anime easing="linear" loop="false" opacity={[0,1]} delay={(e, i) => i * 1000}>
-  <div class="tile is-ancestor">
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <h2 class="subtitle"> <strong>Here is our code that tells our computer what to do when we open a web socket!</strong></h2>
-        
-      </article>
-    </div>
-    </div>
+                      <div class="tile is-parent">
+                          <article class="tile is-child box">
+                              <div className="code">
+                                  <p><code>socket.onmessage = function(event) {'{'}</code></p>
+                                  <p><code> //WE GOT A MESSAGE </code></p>
+                                  <p><code>};</code></p>
+                              </div>
+                          </article>
+                      </div>
 
-  <div class="tile is-ancestor">
-  <Anime easing="linear" loop="false" opacity={[0,1]} delay={(e, i) => i * 1000}>
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <p><code>socket.onopen = function(e) {'{'} </code></p>
-        <p><code>// do a flip </code></p>
-        <p><code>};</code></p>
-      </article>
-    </div>
+                      <div class="tile is-parent">
+                          <article class="tile is-child box">
+                              <div className="code">
+                                  <p><code>socket.onclose = function(event) {'{'} </code></p>
+                                  <p><code>// connection died </code></p>
+                                  <p><code>}; </code></p>
+                              </div>
+                          </article>
+                      </div>
+                  </Anime>
+              </div>
+          </Anime>
 
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <p><code>socket.onmessage = function(event) {'{'}</code></p>
-        <p><code> //WE GOT A MESSAGE </code></p>
-        <p><code>};</code></p>
-      </article>
-    </div>
-
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-      <p><code>socket.onclose = function(event) {'{'} </code></p>
-      <p><code>// connection died </code></p>
-      <p><code>}; </code></p>
-      </article>
-    </div>
-    </Anime>
- </div>
- </Anime>
-</React.Fragment>
-  )
+          </React.Fragment>
+      }
+      
+      />
+    )
 }
 
 //Let's See what happens
@@ -229,137 +257,115 @@ function Step3(props){
     }
 
   return(
-    <React.Fragment>
-    <div class="tile is-ancestor">
-    <div class="tile is-parent is-vertical">
-      <article class="tile is-child box notification is-warning is-12">
-        <div class="content has-text-left">
-
-          <div className="socketAnimateContainer">
-            <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-              <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
+    <Step
+    animation={
+      <React.Fragment>
+              <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
               <Anime scale={[0,1]} delay={100}>
-             <FontAwesomeIcon icon={faComment} size="5x" inverse transform="right-25 up-12"></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faComment} size="5x" inverse transform="right-25 up-12"></FontAwesomeIcon>
               <FontAwesomeIcon icon={faQuestion} size="3x"  transform="right-48 up-20"></FontAwesomeIcon>
               </Anime>
             </span>
-            <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
 
-            <FontAwesomeIcon icon={faServer} size="9x"style={{position: 'absolute', right: '40px', top: '80px'}} />
-
-            <span className="fa-layers fa-fw" style={{position: 'absolute', right: '155px', top: '145px'}}>
-            
+            <span className="fa-layers fa-fw" style={{position: 'absolute', right: '155px', top: '145px'}}>          
               <Anime scale={[0,1]} delay={4000}>
-             <FontAwesomeIcon icon={faComment} size="5x" inverse flip="horizontal" transform="left-12 up-12"></FontAwesomeIcon>
-              <FontAwesomeIcon icon={faThumbsUp} size="3x"  flip="horizontal" transform="left-15 up-20"></FontAwesomeIcon>
-              <Anime opacity={[0.2,1,0,1,0]} delay={4000}duration="1000" easing="linear">
-
-              </Anime>
+              <FontAwesomeIcon icon={faComment} size="5x" inverse flip="horizontal" transform="left-12 up-12"></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faThumbsUp} size="3x"  flip="horizontal" transform="left-15 up-20"></FontAwesomeIcon>
+                <Anime opacity={[0.2,1,0,1,0]} delay={4000}duration="1000" easing="linear">
+                </Anime>
               </Anime>
             </span>
 
-            
-
-
             <Anime easing="linear" duration="1000"
-        loop={false}
-        translateY="-80px"
-        translateX="155px"
-        opacity={['30%','100%', '0%']}
-        delay={580}
-        >
-        <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '190px', top: '8rem'}}></FontAwesomeIcon>          
-      </Anime>
+            loop={false}
+            translateY="-80px"
+            translateX="155px"
+            opacity={['30%','100%', '0%']}
+            delay={580}
+            >
+            <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '190px', top: '8rem'}}></FontAwesomeIcon>          
+          </Anime>
 
 
-      <Anime easing="linear" duration="900"
-        loop={false}
-        translateY="80px"
-        translateX="155px"
-        opacity={['0%', '100%']}
-        delay={1380}
-      >
-        <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '428px', top: '40px'}}></FontAwesomeIcon>          
-      </Anime>  
-          </div>
+            <Anime easing="linear" duration="900"
+              loop={false}
+              translateY="80px"
+              translateX="155px"
+              opacity={['0%', '100%']}
+              delay={1380}
+            >
+              <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '428px', top: '40px'}}></FontAwesomeIcon>          
+            </Anime>  
+
+            <Anime opacity={[0,1]} delay={2400}>
+            <p style={{position: 'absolute', left: '50px', bottom: '40px'}}>[NAME]: Can I open a connection with you?</p>
+            </Anime>
 
 
-      <Anime opacity={[0,1]} delay={2400}>
-      <p style={{position: 'absolute', left: '50px', bottom: '40px'}}>[NAME]: Can I open a connection with you?</p>
-      </Anime>
-
-
-      <Anime opacity={[0,1]} delay={4200}>
-      <p style={{position: 'absolute', right: '150px', bottom: '40px'}}> Ok!</p>
-      </Anime>
-
-        {/*FLIP: comment, dots that blink then die, then delayed thumbs up appears.
-         */}
+            <Anime opacity={[0,1]} delay={4200}>
+            <p style={{position: 'absolute', right: '150px', bottom: '40px'}}> Ok!</p>
+            </Anime>
+       </React.Fragment>
+      }
+      lowerHalf={
+        <div class="tile is-ancestor">
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <h2 class="subtitle"> Let's see what our code does!</h2>
+            
+          </article>
         </div>
-      </article>
-      </div>
-  </div>
+        </div>
 
-  <div class="tile is-ancestor">
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <h2 class="subtitle"> Let's see what our code does!</h2>
-        
-      </article>
-    </div>
-    </div>
-  </React.Fragment>
+      }
+    />
   )
 }
 
 function Step4(props){
   if(props.currStep !==4)
   return null
+
+
   return(
-    <div class="tile is-ancestor">
-    <div class="tile is-parent is-vertical">
-      <article class="tile is-child box notification is-warning is-12">
-          <div class="content has-text-left" className="socketAnimateContainer">
-        <span className="fa-layers fa-fw" style={{position: 'absolute', left: '50px', top: '145px'}}>
-        <FontAwesomeIcon icon={faDesktop} size="8x" ></FontAwesomeIcon>
-        </span>
-       
-        <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
-        <FontAwesomeIcon icon={faServer} size="9x" style={{position: 'absolute', right: '40px', top: '80px'}}/>
-   
-       <FontAwesomeIcon icon={faSlash} size="7x" transform='rotate-350' style={{position: 'absolute', right: '200px', top: '50px'}}></FontAwesomeIcon>
-       <FontAwesomeIcon icon={faSlash} size="7x" transform='rotate-115' style={{position: 'absolute', left: '220px', top: '50px'}}></FontAwesomeIcon>
-       <Anime easing="linear" duration="900"
-        loop={true}
-        direction="alternate"
-        translateY="-80px"
-        translateX="155px"
-        opacity={['30%','100%', '0%']}
-      >
-        <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '190px', top: '8rem'}}></FontAwesomeIcon>          
-      </Anime>
+    <Step
+    animation={
+      <React.Fragment>
+          <FontAwesomeIcon icon={faSlash} size="7x" transform='rotate-350' style={{position: 'absolute', right: '200px', top: '50px'}}></FontAwesomeIcon>
+          <FontAwesomeIcon icon={faSlash} size="7x" transform='rotate-115' style={{position: 'absolute', left: '220px', top: '50px'}}></FontAwesomeIcon>
+          <Anime easing="linear" duration="900"
+          loop={true}
+          direction="alternate"
+          translateY="-80px"
+          translateX="155px"
+          opacity={['30%','100%', '0%']}
+          >
+              <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '190px', top: '8rem'}}></FontAwesomeIcon>          
+          </Anime>
 
-      <Anime easing="linear" duration="900"
-        loop={true}
-        direction="alternate"
-        translateY="80px"
-        translateX="155px"
-        opacity={['30%', '100%', '0%']}
-      >
-        <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
-      </Anime>  
-
-
-
-          </div>
-        </article>
-      <article class="tile is-child box">
-        <h2 class="subtitle"> Hooray! Now your computer doesn't have to ask for updates.</h2>
+          <Anime easing="linear" duration="900"
+          loop={true}
+          direction="alternate"
+          translateY="80px"
+          translateX="155px"
+          opacity={['30%', '100%', '0%']}
+          >
+              <FontAwesomeIcon icon={faCircle} size="2x" color="#fa7c91" style={{position: 'absolute', left: '430px', top: '40px'}}></FontAwesomeIcon>          
+          </Anime>  
+      </React.Fragment>
+    }
+    lowerHalf={
+      <div class="tile is-ancestor">
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+          <h2 class="subtitle"> Hooray! Now your computer doesn't have to ask for updates.</h2>
         <h2 class="subtitle">Our website sends a stream of updates with an opened <strong>web socket!</strong></h2>
+          </article>
+        </div>
+        </div>
+    }
     
-      </article>
-    </div>
-  </div>
+    />
   )
 }
 

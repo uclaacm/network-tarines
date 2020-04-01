@@ -8,6 +8,7 @@ import CardAnimation from './CardAnimation';
 import RequestDemo from './RequestDemo';
 import SocketDemo from './SocketDemo';
 import OnlineDemo from './OnlineDemo';
+import QuestMap from './QuestMap';
 
 function CodeSegment(props)
 {
@@ -71,7 +72,7 @@ class App extends Component {
     super(props);
     this.state = {
       name: "",
-      others: ["Abigal", "Ismael", "Valeria"], //BACKEND
+      others: ["Abigal", "Ismael", "Valeria", "Pragathi", "Larry", "Jessie"], //BACKEND
       show: false
     }
   }
@@ -88,33 +89,24 @@ class App extends Component {
       <div className="App">
       <section class="hero is-warning is-fullheight">
         <div class="hero-head">
-        <Anime opacity={[0, 1]} translateY={'1em'} delay={500}>
-          <h1 class="title">Websites on the Internet</h1>
-          </Anime>
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={500}>
+            <h1 class="title is-1" style={{padding: '20px'}}>Websites on the Internet</h1>
+            </Anime>
         </div>
         <div class="hero-body">
           <div class="container">
-          <Anime opacity={[0, 1]} translateY={'1em'} delay={(e, i) => i * 1000}>
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={(e, i) => i * 1300}>
 
-          <span className="introContainer">
-            <Anime 
-            duration={5000}
-            easing="linear"
-            rotate={360}
-              loop={true}
-            >
-              <div className="introAnimation"/>
-            </Anime>
-          </span>
-            <h1 class="title">
+          <QuestMap/>
+            <h1 class="title" style={{padding: '10px'}}>
               Hey there!
             </h1>
             
             <h2 class="subtitle">
-            The internet can be a bit tricky, so we’re here to help you figure out how it works.
-            Are you <a href="https://teachla.uclaacm.com/"> ready?   </a></h2>
+            The internet can be a scary place, so <a href="https://teachla.uclaacm.com/">we</a>’re here to help you figure out how it works.
+            Are you ready? </h2>
 
-            <div className="buttons is-centered">
+            <div className="buttons is-centered" style={{padding: '20px'}}>
                 <a className="button is-link is-rounded is-large" href="#NameInput">Let's go!</a>
               </div>
           </Anime>
@@ -122,7 +114,7 @@ class App extends Component {
         </div>
       </section>
         
-
+      
       <NameInput
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
       />
