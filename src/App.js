@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.sass';
 import './App.css';
 import NameInput from './NameInput/NameInput';
+import CodeSegment from './CodeSegment';
 import Animation from './Animations';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 //import { TransitionGroup, Transition } from 'react-transition-group';
@@ -11,67 +12,6 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 //import { faLemon } from '@fortawesome/free-solid-svg-icons';
 
 //const Anime = ReactAnime.default;
-
-
-function CodeSegment(props)
-{
-  return (
-  <section id="CodeSegment" class="hero is-fullheight">
-      <div class="hero-body">
-        <div class="container">
-
-
-    <div class="tile is-ancestor">
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <h2 class="subtitle"> <strong>{props.stepNumber}</strong></h2>
-
-          <div className="field has-addons">
-            <div className="control">
-              <input id="inputCode" className="input is-warning" type="text" value={props.inputCode} onChange={props.onInputChange} placeholder={props.codeWord}/>
-            </div>
-            <a class="button is-warning">TODO!</a>
-          </div>
-        <div class="content">
-  <p>{props.step}</p>
-        </div>
-
-        <div class="field is-grouped">
-        <p class="control">
-            <a class="button is-light" onClick={props.onBackClick} href={props.reference}>
-              Go back
-            </a>
-          </p>          
-          <p class="control">
-            <a class="button is-primary" onClick={props.onNextClick} href={props.nextPage}>
-              Next
-            </a> 
-          </p>
-        </div>
-
-
-      </article>
-    </div>
-    <div class="tile is-parent is-8">
-      <article class="tile is-child box notification is-warning">
-        <div class="content has-text-left">
-         <p><code>var xhr = new XMLHttpRequest();</code></p>
-          <p><code>xhr.____("POST", 'https://uclaacm.github.io/network-tarines/index.html', true);</code></p>
-          <p><code>xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");</code></p>
-          <p><code>xhr.onreadystatechange = function() REST OF CODE GOES HERE. </code>
-          </p>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  </div>
-  </div>
-  </section>
-
-  );
-}
-
 
 // var myAnimation = anime({
 //   targets: ['.blue', '.green'],
@@ -134,8 +74,6 @@ class App extends Component {
       this.setState({refer : "#CodeSegment"})
     }
     this.setState({segmentState : (this.state.segmentState-1)})
-    //this.handleChangeReference();
-    //this.setState({name : this.state.segmentState})
   }
 
   handleInputChange = (e) =>
@@ -231,29 +169,6 @@ class App extends Component {
             <div class="container">
             <h2 class="subtitle"> Hi {this.state.name}! Please help us send your name to our website using code! </h2>
             {segment}
-            {/*<CodeSegment 
-            id="Step1"
-            nextPage="#Step2"
-            backPage="#NameInput"
-            stepNumber="First," 
-            codeWord="open"
-            step="We need to post a message to our website - type “open” to open a new message."  />
-          <CodeSegment 
-            id="Step2"
-            nextPage="#Step3"
-            backPage="#Step1"
-            stepNumber="Next," 
-            codeWord="DONE"
-            step="Now we have to make sure that the last message was taken care of!
-            Type  “DONE” so the code can check if the computer is done with the last message"  />
-
-        <CodeSegment 
-            id="Step3"
-            nextPage="#"
-            backPage="#Step2"
-            stepNumber="Last but not LEAST" 
-            codeWord={this.state.name}
-            step="Last one: we’re trying to send your name, so enter your name here!" />*/}
 
           </div>          
           
