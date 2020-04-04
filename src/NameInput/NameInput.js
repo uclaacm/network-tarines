@@ -1,5 +1,5 @@
 import React from 'react';
-//import bulma
+
 class NameInput extends React.Component {
     constructor(){
         super();
@@ -29,7 +29,9 @@ class NameInput extends React.Component {
 
     render(){
         return (
-            <section id="NameInput" class="section">
+          <section class="hero is-large" > 
+              <div class="hero-body">
+            <section id="NameInput" >
             <div class="container">
               <h1 class="title">Enter your name</h1>
  
@@ -46,6 +48,8 @@ class NameInput extends React.Component {
             </div>
 
           </div>
+            </section>
+            </div>
             </section>
         );
 

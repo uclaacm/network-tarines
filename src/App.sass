@@ -3,20 +3,31 @@
 // Font
 @import url('https://fonts.googleapis.com/css?family=Chivo&display=swap');
 
+
+//pink #fa7c91;
+//$blue: #96bfd4;
+//$pink: #f0d0c9; 
+//$brown: #757763;
+//$beige-light: #d0d1cd;
+//$beige-lighter: #eff0eb;
+//$orange: #ffba44;
+
 // Demo Colors
-$purple: #8a4d76;
-$pink: #fa7c91;
+$blue: #96bfd4;
+$pink: #fa7c91; 
 $brown: #757763;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
-$orange: #ffba44;
+$orange: #ef8760;
+$yellow: #ffd988;
 
 // Update Bulma's global variables
 //$family-sans-serif: 'Nunito', sans-serif;
 $font: 'Chivo', ;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: $orange;
+$primary: $blue;
+$warning: $yellow;
 $link: $pink;
 $widescreen-enabled: true;
 $fullhd-enabled: false;
@@ -26,7 +37,7 @@ $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 //$input-border-color: transparent;
 $input-shadow: none;
-$footer-background-color: $orange;
+$footer-background-color: $grey-light;
 $family-primary: $font;
 
 //NOTE: set before importing bulma.
@@ -45,3 +56,4 @@ $family-primary: $font;
 @import '../node_modules/bulma/sass/elements/_all.sass';
 @import '../node_modules/bulma/sass/grid/tiles.sass';
 @import '../node_modules/bulma/sass/layout/footer.sass';
+@import '../node_modules/bulma/sass/grid/columns.sass';

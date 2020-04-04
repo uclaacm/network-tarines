@@ -1,31 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Anime from 'react-anime';
 import './App.sass';
 import './App.css';
 import NameInput from './NameInput/NameInput';
 import CodeSegment from './CodeSegment';
-import Animation from './Animations';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-//import { TransitionGroup, Transition } from 'react-transition-group';
-//import anime from '../node_modules/animejs/lib/anime.es.js';
-//'font-awesome/css/font-awesome.min.css';
-//import { faLemon } from '@fortawesome/free-solid-svg-icons';
-
-//const Anime = ReactAnime.default;
-
-// var myAnimation = anime({
-//   targets: ['.blue', '.green'],
-//   translateX: '13rem',
-//   rotate: 180,
-//   borderRadius: '8px',
-//   duration: 2000,
-//   loop: true
-// });
-
-
-//UNDERSTAND CANVAS
-
-
+import CardAnimation from './CardAnimation';
+import RequestDemo from './RequestDemo';
+import SocketDemo from './SocketDemo';
+import OnlineDemo from './OnlineDemo';
+import QuestMap from './QuestMap';
 
 class App extends Component {
   constructor(props){
@@ -35,7 +19,7 @@ class App extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       name: "",
-      others: ["Abigal", "Ismael", "Valeria"], //update backend
+      others: ["Abigal", "Ismael", "Valeria", "Pragathi", "Larry", "Jessie"], //BACKEND
       show: false,
       segmentState: 1,
       input: "",
@@ -47,7 +31,7 @@ class App extends Component {
   handleNameSubmit = (enteredName) => {
     this.setState({name: enteredName});
     //GO TO NEXT PAGE. 
-    //BACKEND
+    //BACKEND, give name to backend.
   }
 
   handleNextClick = (e) =>
@@ -130,33 +114,31 @@ class App extends Component {
         onBackClick = {this.handleBackClick}
         onInputChange = {this.handleInputChange} />);
     }
-
     return (
       <div className="App">
       <section id="intro" class="hero is-warning is-fullheight">
         <div class="hero-head">
-          <h1 class="title">network-tarines</h1>
-
-
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={500}>
+            <h1 class="title is-1" style={{padding: '20px'}}>Websites on the Internet</h1>
+            </Anime>
         </div>
         <div class="hero-body">
           <div class="container">
-          <Animation></Animation>
-            <h1 class="title">
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={(e, i) => i * 1300}>
+
+          <QuestMap/>
+            <h1 class="title" style={{padding: '10px'}}>
               Hey there!
             </h1>
+            
             <h2 class="subtitle">
-            The internet can be a bit tricky, so we’re here to help you figure out how it works.
-  Are you <a href="https://teachla.uclaacm.com/">
-              ready? 
-            </a>
-            </h2>
-            <i class="fas fa-lemon"></i>
+            The internet can be a scary place, so <a href="https://teachla.uclaacm.com/">we</a>’re here to help you figure out how it works.
+            Are you ready? </h2>
 
-            <div className="buttons is-centered">
+            <div className="buttons is-centered" style={{padding: '20px'}}>
                 <a className="button is-link is-rounded is-large" href="#NameInput">Let's go!</a>
               </div>
-
+          </Anime>
           </div>
         </div>
       </section>
@@ -165,7 +147,10 @@ class App extends Component {
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
       />
 
-            <section id="CodeSection" class="section">
+
+      <div class="container">
+      </div>
+          <section id="CodeSection" class="section">
             <div class="container">
             <h2 class="subtitle"> Hi {this.state.name}! Please help us send your name to our website using code! </h2>
             {segment}
@@ -174,55 +159,16 @@ class App extends Component {
           
           </section>
 
+ 
+        <RequestDemo/>
+        <SocketDemo name={this.state.name}/>
 
-          <section class="hero is-warning is-fullheight">
-          <h1 class="title has-text-centered">Demo Animation goes here.</h1>
-
-
-          {/* <div class="blue" style={styles.circle} />
-           <div class="green"> green </div> */}
-
-
-        {/* <Anime easing="easeOutElastic"
-           loop={true}
-           duration={1000}
-           direction="alternate"
-           delay={(el, index) => index * 240}
-           translateX='13rem'
-           scale={[.75, .9]}>
-        <div className="blue"/>
-        <div className="green"/>
-        <div className="red"/>
-      </Anime> */}
-
-
-          <span class="icon">
-            <i className="fa fa-desktop"></i>
-          </span>
-
-          
-
-          </section>
-
-
-                <div className="field">
-                  <p className="control">
-                    <span className="select is-centered">
-                      <select>
-                        <option>Select dropdown</option>
-                        <option>{this.state.others[0]}</option>
-                        <option>{this.state.others[1]}</option>
-                        <option>{this.state.others[2]}</option>                                                
-                      </select>
-                    </span>
-                  </p>
-                </div>
-
+        <OnlineDemo others={this.state.others} name={this.state.name}/>
         <footer class="footer">
         <div class="content has-text-centered">
           <p>
             Built by UCLA's ACM TeachLA! 
-            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>. 
+            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>, <a href="https://alain.xyz/libraries/react-anime"><strong>React-Anime</strong></a>. 
           </p>
         </div>
       </footer>
@@ -236,31 +182,4 @@ class App extends Component {
   }
 }
 
-// const styles = {
-//   circle: {
-//     width: 64,
-//     hieght: 64,
-//     borderRaiuds: '100%',
-//   },
-// };
-
 export default App;
-
-
-/*
-
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
- */
