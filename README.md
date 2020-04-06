@@ -3,7 +3,7 @@ Network Demo for ACM TEACHLA.  Elementary School
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-First, run npm install.
+First, run npm install.<br />
 Also, please start the server, https://github.com/uclaacm/network-tarines-backend, for full client server interaction!
 
 In the project directory, you can run:
