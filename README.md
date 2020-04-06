@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 First, run npm install.
+Also, please start the server, https://github.com/uclaacm/network-tarines-backend, for full client server interaction!
 
 In the project directory, you can run:
 
