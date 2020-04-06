@@ -11,31 +11,6 @@ import SocketDemo from './SocketDemo';
 import OnlineDemo from './OnlineDemo';
 import QuestMap from './QuestMap';
 import io from 'socket.io-client';
-//var socket = io('http://localhost');
-
-
-//socket.on(App.state.enteredName, function(data){
-//          console.log(data)
-          /**                                                                                                                                                                                 
-             Possible Reponses:                                                                                                                                                               
-             * {err: "Username not allowed"} **********************************************                                                                                                   
-             * {success: "User Added"}                                                                                                                                                        
-             * {users: (userlist)}                                                                                                                                                            
-             * {err: "Username not found"} ************************************************                                                                                                   
-             * {sender: (sender), message: (message)} *************************************                                                                                                   
-             * {err: "Could not send message"}) *******************************************                                                                                                   
-             **/
-/**          if(data.users){
-              //app.props.others = data.users                                                                                                                                                 
-              App.setState({others: data.users})
-              console.log("hi"+data.users)
-              //OnlineDemo.setState({others: data.users})                                                                                                                                     
-                //  OnlineDemo.render()                                                                                                                                                       
-
-          }
-      })
-**/
-
 
 class App extends Component {
   constructor(props){
