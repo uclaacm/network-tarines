@@ -10,8 +10,8 @@ class OnlineDemo extends React.Component {
       const otherUsers = []
       const others = this.props.others; //BACKEND. get other kids' names
       const name = this.props.name; //BACKEND. get current kid's name
-
       for(const [index, value] of others.entries()){
+	  if(index != 0)
           otherUsers.push(
           
             <span className="userContainer" style={     {left: '10px', top:'200px' }           }>

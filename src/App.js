@@ -10,29 +10,80 @@ import RequestDemo from './RequestDemo';
 import SocketDemo from './SocketDemo';
 import OnlineDemo from './OnlineDemo';
 import QuestMap from './QuestMap';
+import io from 'socket.io-client';
+//var socket = io('http://localhost');
+
+
+//socket.on(App.state.enteredName, function(data){
+//          console.log(data)
+          /**                                                                                                                                                                                 
+             Possible Reponses:                                                                                                                                                               
+             * {err: "Username not allowed"} **********************************************                                                                                                   
+             * {success: "User Added"}                                                                                                                                                        
+             * {users: (userlist)}                                                                                                                                                            
+             * {err: "Username not found"} ************************************************                                                                                                   
+             * {sender: (sender), message: (message)} *************************************                                                                                                   
+             * {err: "Could not send message"}) *******************************************                                                                                                   
+             **/
+/**          if(data.users){
+              //app.props.others = data.users                                                                                                                                                 
+              App.setState({others: data.users})
+              console.log("hi"+data.users)
+              //OnlineDemo.setState({others: data.users})                                                                                                                                     
+                //  OnlineDemo.render()                                                                                                                                                       
+
+          }
+      })
+**/
+
 
 class App extends Component {
   constructor(props){
     super(props);
+    this.socket = io("http://localhost")
+    this.start_socket()
+      
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       name: "",
+      prev_name: "",	
       others: ["Abigal", "Ismael", "Valeria", "Pragathi", "Larry", "Jessie"], //BACKEND
       show: false,
       segmentState: 1,
       input: "",
-      refer: "#NameInput"
+      refer: "#NameInput",
+      endpoint: "http://localhost"
     } 
   }
 
-
-  handleNameSubmit = (enteredName) => {
-    this.setState({name: enteredName});
+    
+    start_socket(){
+	var app = this
+	this.socket.on('users', function(data){
+	    /**
+	       Possible Reponses:
+	       * {err: "Username not allowed"} ********************************************** # to user error socket                                                                       
+	       * {success: "User Added"}                                                                                                                                         
+	       * {users: (userlist)}        
+	       * {err: "Username not found"} ************************************************                                  
+	       * {sender: (sender), message: (message)} *************************************            
+	       * {err: "Could not send message"}) *******************************************                                      
+	       **/
+	    if(data.users){
+		app.setState({others: data.users})
+		console.log("Received list: "+data.users)
+	    }
+	    
+	})
+    }
+     
+    handleNameSubmit = (enteredName) => {
+       this.setState({name: enteredName}); //BACKEND
     //GO TO NEXT PAGE. 
-    //BACKEND, give name to backend.
-  }
+	this.socket.emit("user connected", {user: enteredName})
+    }
 
   handleNextClick = (e) =>
   {
@@ -67,7 +118,7 @@ class App extends Component {
 
 
   render()
-  {
+    {
     let segment = (
       <CodeSegment 
         //id="Step1"
