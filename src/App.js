@@ -28,8 +28,7 @@ class App extends Component {
       show: false,
       segmentState: 1,
       input: "",
-      refer: "#NameInput",
-      endpoint: "http://localhost"
+      refer: "#NameInput"
     } 
   }
 
