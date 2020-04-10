@@ -319,10 +319,7 @@ function Step4(props){
               <div class="column">
               <Anime opacity={[0, 1]} translateY={(e, i) =>(i+1)*20} delay={(e, i) => i * 1000}>
                 <span>
-                {/* <span className="fa-layers fa-fw" style={{padding: '5px'}}>
-                  <FontAwesomeIcon icon={faCircle} size="2x" transform="left-0"/>
-                  <span class="fa-layers-text fa-inverse"> 1</span>
-                </span>                   */}
+              
                 <p class="title is-5">1. Open Connection</p>
                 </span>
                 <p class="title is-5">2. Send Connection</p>
@@ -346,7 +343,7 @@ function Step5(props){
     currStep={props.currStep}
     idNum={5}
     text={<p>But if we use it all the time, it can <strong>crash</strong> our
-           website! This is bad. we send messages using something else –– they're called <strong>web sockets</strong>! </p>}
+           website! This is bad, so we send messages using something else –– they're called <strong>web sockets</strong>! </p>}
     animation={
       <React.Fragment>
      <Anime easing="linear" duration="900"
@@ -373,10 +370,7 @@ function Step5(props){
               <div class="column">
               <Anime translateY={(e, i) =>(i+1)*20} duration={0}>
                 <span>
-                {/* <span className="fa-layers fa-fw" style={{padding: '5px'}}>
-                  <FontAwesomeIcon icon={faCircle} size="2x" transform="left-0"/>
-                  <span class="fa-layers-text fa-inverse"> 1</span>
-                </span>                   */}
+                
                 <p class="title is-5">1. Open Connection</p>
                 </span>
                 <p class="title is-5">2. Send Connection</p>

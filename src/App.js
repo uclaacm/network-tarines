@@ -5,7 +5,6 @@ import './App.css';
 import NameInput from './NameInput/NameInput';
 import CodeSegment from './CodeSegment';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import CardAnimation from './CardAnimation';
 import RequestDemo from './RequestDemo';
 import SocketDemo from './SocketDemo';
 import OnlineDemo from './OnlineDemo';
@@ -28,7 +27,8 @@ class App extends Component {
       show: false,
       segmentState: 1,
       input: "",
-      refer: "#NameInput"
+      refer: "#NameInput",
+      socketState: ""
     } 
   }
 
@@ -45,6 +45,13 @@ class App extends Component {
 	       * {sender: (sender), message: (message)} *************************************            
 	       * {err: "Could not send message"}) *******************************************                                      
 	       **/
+    // if(data.success){
+    //   app.setState({socketState: 'success'});
+    // }
+    // else if (data.success){
+    //   app.setState({socketState: 'err'});
+    // }
+
 	    if(data.users){
 		app.setState({others: data.users})
 		console.log("Received list: "+data.users)
@@ -95,7 +102,7 @@ class App extends Component {
     {
     let segment = (
       <CodeSegment 
-        //id="Step1"
+        idNum="1"
         nextPage="#CodeSegment"
         stepNumber="First," 
         codeWord="open"
@@ -111,7 +118,7 @@ class App extends Component {
     {
       segment = (
       <CodeSegment 
-            //id="Step2"
+            idNum="2"
             nextPage="#CodeSegment"
             backPage="#CodeSegment"
             stepNumber="Next," 
@@ -128,8 +135,7 @@ class App extends Component {
     {
       segment = (
         <CodeSegment 
-        //id="Step3"
-        //nextPage="#"
+        idNum="3"
         backPage="#CodeSegment"
         stepNumber="Last but not LEAST" 
         codeWord={this.state.name}
@@ -137,7 +143,9 @@ class App extends Component {
         reference = {this.state.refer}
         inputCode={this.state.input}
         onBackClick = {this.handleBackClick}
-        onInputChange = {this.handleInputChange} />);
+        onInputChange = {this.handleInputChange} 
+        enteredName={this.name}
+        />);
     }
     return (
       <div className="App">

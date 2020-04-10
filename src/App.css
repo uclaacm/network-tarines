@@ -92,3 +92,9 @@
   width: 100px;
   height: 100px;
 }
+
+
+.controlPanelContainer{
+  width: 400px;
+  padding-left: 30px;
+}

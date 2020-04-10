@@ -1,13 +1,15 @@
 import React from 'react';
-import Anime, {anime} from 'react-anime';
+import Anime from 'react-anime';
 import { faDesktop, faChevronDown, faServer, faComment, faCommentDots, faCircle, faChevronRight, faQuestion, faThumbsUp, faSlash, faBroadcastTower} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 class SocketDemo extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       currStep: 1,
+      codeWord: 'website.com',
     }
   }
 
@@ -75,6 +77,7 @@ class SocketDemo extends React.Component {
             <Anime easing="linear" loop="false" opacity={['0%', '100%']}>
               <Step1 
               currStep = {this.state.currStep}
+              codeWord = {this.state.codeWord}
               />
               </Anime>
               <Step2 
@@ -82,6 +85,7 @@ class SocketDemo extends React.Component {
               />            
               <Step3
               currStep = {this.state.currStep}
+              name={this.props.name}
               />
               <Step4 
               currStep = {this.state.currStep}
@@ -97,6 +101,20 @@ class SocketDemo extends React.Component {
           
         )
     }
+}
+
+function FillInBlank(props){
+
+  if(props.isFilled)
+  {
+      return(
+          <span style={{backgroundColor:"#a9f07d"}}>{props.text2}</span>
+      )
+  }
+  return(
+      <span style={{backgroundColor:"#ff0000"}}>{props.text}</span>
+      
+  )
 }
 
 
@@ -124,7 +142,15 @@ function Step(props){
   )
 }
 
+
+function handleSubmit(props){
+  props.isFilled = true;
+}
+
 function Step1(props){
+  let isFilled = false;
+  let test =  isFilled ? 1: 2;
+  
   if(props.currStep !== 1){
     return null
     }
@@ -149,22 +175,34 @@ function Step1(props){
       
       lowerHalf={
         <React.Fragment>
-            <div class="tile is-ancestor">
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <h2 class="subtitle"> <strong>Enter our website so we can open a socket!</strong></h2>
-                        <div className="field has-addons" >
-                            <div className="control" style={{ position: 'relative', margin: 'auto'}}>
-                                <input className="input is-warning is-rounded" type="text" placeholder="NetworkDemos.com" />
-                            </div>
-                        </div>
-                        <code> let socket = new WebSocket("____"); </code>
-                        <div class="content">
-                            <p>{props.step}</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
+                        <div class="tile is-ancestor" style={{ justifyContent: 'center'}}>
+                  <Anime easing="linear" loop="false" opacity={[0,1]} delay={(e, i) => i * 1000}>
+                      <div class="tile is-parent">
+                          <article class="tile is-child box">
+                          <h2 class="subtitle"> Enter our website so we can open a socket!</h2>
+                          <div className="field has-addons" style={{paddingLeft: '25%', paddingBottom: '20px'}}>
+                                        <div className="control">
+                                            <input id="inputCode" className="input is-warning" type="text"  placeholder={props.codeWord}/>
+                                        </div>
+                                        {/* <a class="button is-warning" onClick={(}}>Go!</a> */}
+                                    </div>
+                          </article>
+                         
+                      </div>
+
+                      <div class="tile is-parent">
+                          <article class="tile is-child box notification is-warning has-text-left">
+                              <p>
+                              <code> let socket = new WebSocket("{props.codeWord}"); </code>
+                              </p>
+                              {/* <p>{test}</p> */}
+                          </article>
+                      </div>
+
+                  
+                  </Anime>
+              </div>
+          
         </React.Fragment>
 
       }
@@ -202,7 +240,7 @@ function Step2(props){
               <div class="tile is-ancestor">
                   <div class="tile is-parent">
                       <article class="tile is-child box" style={{boxShadow: '0'}}>
-                          <h2 class="subtitle"> <strong>Here is our code that tells our computer what to do when we open a web socket!</strong></h2>
+                          <h2 class="subtitle"> Here is our code that tells our computer what to do when we open a web socket!</h2>
                           
                       </article>
                   </div>
@@ -256,6 +294,7 @@ function Step3(props){
     return null
     }
 
+
   return(
     <Step
     animation={
@@ -298,7 +337,7 @@ function Step3(props){
             </Anime>  
 
             <Anime opacity={[0,1]} delay={2400}>
-            <p style={{position: 'absolute', left: '50px', bottom: '40px'}}>[NAME]: Can I open a connection with you?</p>
+            <p style={{position: 'absolute', left: '50px', bottom: '40px'}}>{props.name}{' >>'} Can I open a connection with you?</p>
             </Anime>
 
 
