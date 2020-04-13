@@ -85,16 +85,20 @@
   text-align: center;
   position: relative;
   height: 800px;
+  background-color: lightblue;
 }
 
 .userContainer{
   position: relative;
   width: 100px;
-  height: 100px;
+  height: 120px;
+  text-align: center;
+  /* background-color: lightblue; */
+  overflow-wrap: break-word;
 }
 
-
-.controlPanelContainer{
-  width: 400px;
-  padding-left: 30px;
+.messageCenterContainer{
+  width: 300px;
+  /* position: absolute;
+  left: 10%; */
 }
