@@ -12,10 +12,12 @@ class OnlineDemo extends React.Component {
             // actionSymbols: [faHandRock, faHandPaper, faHandScissors, faCookie, faPaperPlane],
             // actionColors: []
             message: "",
-            displayedMessage: "", //change upon end of plane animation
+            displayedMessage: "",
+            serverPulseColors: ["#FF9AA2", "#FFB7B2", "#FFDAC1", "#E2F0CB", "#B5EAD7", "#C7CEEA"],
+            color: "white",
             hasSentMessage: false,
             sentCount: 0,
-            //eceivedUsers: [],
+    
             receivedMessages: ["i'm abby", "is this mael", "value this!", "pragmatic man, who do you think u are", "", ""]
             //^^ messages from each user: Backend!
         }
@@ -26,12 +28,13 @@ class OnlineDemo extends React.Component {
       this.setState({message: e.target.value});
     }
 
+
     handleSubmit = (e) =>
     {
     //   send to backend as user, msg
-    //project onto screen
-        this.setState({hasSentMessage: true})
+        let randomColor = this.state.serverPulseColors[Math.floor(Math.random()*this.state.serverPulseColors.length)];
         this.setState({displayedMessage: this.state.message})
+        this.setState({color: randomColor})
     }
 
     renderSubmitButton = () => {
@@ -49,10 +52,11 @@ class OnlineDemo extends React.Component {
     }
 
     renderServer = () => {
+
             return(
                 <span className="fa-layers fa-fw">
                  <Anime easing="linear" loop={true} direction="alternate" opacity={['100%', '10%']}>
-                        <FontAwesomeIcon icon={faWifi} color="#d5f5ee" size="5x" flip="vertical" transform="down-12" ></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faWifi} color={this.state.color} size="5x" flip="vertical" transform="down-12" ></FontAwesomeIcon>
                 </Anime>
                 <FontAwesomeIcon icon={faServer} size="6x" transform="" ></FontAwesomeIcon>
             </span>
@@ -79,13 +83,14 @@ class OnlineDemo extends React.Component {
     //     );
     // }
 
-    renderUser1 = (value, message, x, y) => {
+    renderUser1 = (value, text, x, y) => {
         
-
+        let message = text;
         if(value == this.props.name)
         {
             x = 100;
-            y = -340
+            y = -190;
+            message = this.state.displayedMessage;
         }
 
         return(
@@ -147,35 +152,25 @@ class OnlineDemo extends React.Component {
         </React.Fragment>
         );
         }
-        return(<p>No Plane</p>);
+        return null;
     }
     
   render(){
       const otherUsers = [];
-      //const otherNames = [];
       const others = this.props.others; 
       const name = this.props.name; 
 
 
-    // const actionButtons = []
-
-    //   for(const [index, value] of this.state.actionSymbols.entries()){
-    //     actionButtons.push(
-    //         <button class="button is-medium" onClick={this.handleAction}>
-    //             <span class="icon is-small">
-    //                 <FontAwesomeIcon icon={value}></FontAwesomeIcon>
-    //                 </span>
-    //         </button>
-    //     )
-    //   }
-
       for(const [index, value] of others.entries()){
-      if(index != 0) {
+      if(index != 0 && value !=name) {
         let xSign = Math.random() < 0.5 ? -1 : 1;
         let ySign = Math.random() < 0.5 ? -1 : 1;
+
+        xSign = Math.pow(-1, 3%index);
+        ySign = Math.pow(-1, 3%index+1);
         
-        let x = xSign*(index)*30 + 1;
-        let y = ySign*(index/2)*70;
+        let x = (index)*50+ 1;
+        let y = ySign*(index)*50;
 
           otherUsers.push(
             this.renderUser1(value, this.state.receivedMessages[index], x, y));
@@ -190,7 +185,7 @@ class OnlineDemo extends React.Component {
                     <h2 class="subtitle" style={{padding: '40px'}}>Hooray, you did it! This is everyone connected right now with you. Let's talk with them! </h2>
                     {this.renderServer()}
             </div>
-            <div class="hero-body">
+            <div class="hero-body" >
             {this.renderMessageCenter()}
                 {this.renderUser1(name, this.state.displayedMessage)}
                 {this.renderPlane()}

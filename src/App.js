@@ -45,12 +45,12 @@ class App extends Component {
 	       * {sender: (sender), message: (message)} *************************************            
 	       * {err: "Could not send message"}) *******************************************                                      
 	       **/
-    // if(data.success){
-    //   app.setState({socketState: 'success'});
-    // }
-    // else if (data.success){
-    //   app.setState({socketState: 'err'});
-    // }
+    if(data.success){
+      app.setState({socketState: 'success'});
+    }
+    else if (data.err){
+      app.setState({socketState: 'err'});
+    }
 
 	    if(data.users){
 		app.setState({others: data.users})

@@ -80,10 +80,10 @@
 
 /* not in use */
 .onlineContainer{
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
-  text-align: center;
-  position: relative;
+  text-align: center; */
+  /* position: relative; */
   height: 800px;
   background-color: lightblue;
 }
@@ -100,5 +100,5 @@
 .messageCenterContainer{
   width: 300px;
   /* position: absolute;
-  left: 10%; */
+  padding-bottom: 0px; */
 }
