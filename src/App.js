@@ -16,54 +16,66 @@ class App extends Component {
     super(props);
     this.socket = io("http://localhost")
     this.start_socket()
-      
+
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       name: "",
-      prev_name: "",	
       others: ["Abigal", "Ismael", "Valeria", "Pragathi", "Larry", "Jessie"], //BACKEND
       show: false,
       segmentState: 1,
       input: "",
       refer: "#NameInput",
-      socketState: ""
-    } 
+      socketState: "",
+      receivedMessages: {"Abigal": "i'm abby", "Ismael":"is this mael",
+      "Valeria": "value this!", "Pragathi": "pragmatic man",
+      "Larry": "who do you think u are", "Jessie": "Bleb"}
+    }
   }
 
-    
-    start_socket(){
-	var app = this
-	this.socket.on('users', function(data){
-	    /**
-	       Possible Reponses:
-	       * {err: "Username not allowed"} ********************************************** # to user error socket                                                                       
-	       * {success: "User Added"}                                                                                                                                         
-	       * {users: (userlist)}        
-	       * {err: "Username not found"} ************************************************                                  
-	       * {sender: (sender), message: (message)} *************************************            
-	       * {err: "Could not send message"}) *******************************************                                      
-	       **/
-    if(data.success){
-      app.setState({socketState: 'success'});
-    }
-    else if (data.err){
-      app.setState({socketState: 'err'});
-    }
 
-	    if(data.users){
-		app.setState({others: data.users})
-		console.log("Received list: "+data.users)
-	    }
-	    
+  start_socket(){
+	   var app = this
+	    this.socket.on('users', function(data){
+	       /**
+	       Possible Reponses:
+	       * {err: "Username not allowed"} ********************************************** # to user error socket
+	       * {success: "User Added"}
+	       * {users: (userlist)}
+	       * {err: "Username not found"} ************************************************
+	       * {sender: (sender), message: (message)} *************************************
+	       * {err: "Could not send message"}) *******************************************
+	       **/
+         if(data.success){
+           app.setState({socketState: 'success'});
+         }
+         else if (data.err){
+           app.setState({socketState: 'err'});
+         }
+	        if(data.users){
+		          app.setState({others: data.users})
+		          console.log("Received list: "+data.users)
+	        }
 	})
     }
-     
+
     handleNameSubmit = (enteredName) => {
-       this.setState({name: enteredName}); //BACKEND
-    //GO TO NEXT PAGE. 
-	this.socket.emit("user connected", {user: enteredName})
+       //GO TO NEXT PAGE.
+     var app = this
+	   this.socket.emit("user connected", {user: enteredName})
+
+     if(this.state.name != ""){
+       this.socket.removeAllListeners(this.state.name + " messages")
+     }
+     this.setState({name: enteredName}); //BACKEND
+
+     this.socket.on(enteredName + " messages", function (data){
+
+       if(data.messages){
+         app.setState(app.setState({receivedMessages: data.messages}))
+       }
+     })
     }
 
   handleNextClick = (e) =>
@@ -101,27 +113,27 @@ class App extends Component {
   render()
     {
     let segment = (
-      <CodeSegment 
+      <CodeSegment
         idNum="1"
         nextPage="#CodeSegment"
-        stepNumber="First," 
+        stepNumber="First,"
         codeWord="open"
-        step="We need to post a message to our website - type “open” to open a new message." 
+        step="We need to post a message to our website - type “open” to open a new message."
         inputCode={this.state.input}
         reference = {this.state.refer}
         onNextClick = {this.handleNextClick}
         onBackClick = {this.handleBackClick}
         onInputChange = {this.handleInputChange}
         /> );
-    
+
     if(this.state.segmentState === 2)
     {
       segment = (
-      <CodeSegment 
+      <CodeSegment
             idNum="2"
             nextPage="#CodeSegment"
             backPage="#CodeSegment"
-            stepNumber="Next," 
+            stepNumber="Next,"
             codeWord="DONE"
             step="Now we have to make sure that the last message was taken care of!
             Type  “DONE” so the code can check if the computer is done with the last message"
@@ -134,16 +146,16 @@ class App extends Component {
     else if(this.state.segmentState === 3)
     {
       segment = (
-        <CodeSegment 
+        <CodeSegment
         idNum="3"
         backPage="#CodeSegment"
-        stepNumber="Last but not LEAST" 
+        stepNumber="Last but not LEAST"
         codeWord={this.state.name}
         step="Last one: we’re trying to send your name, so enter your name here!"
         reference = {this.state.refer}
         inputCode={this.state.input}
         onBackClick = {this.handleBackClick}
-        onInputChange = {this.handleInputChange} 
+        onInputChange = {this.handleInputChange}
         enteredName={this.name}
         />);
     }
@@ -163,7 +175,7 @@ class App extends Component {
             <h1 class="title" style={{padding: '10px'}}>
               Hey there!
             </h1>
-            
+
             <h2 class="subtitle">
             The internet can be a scary place, so <a href="https://teachla.uclaacm.com/">we</a>’re here to help you figure out how it works.
             Are you ready? </h2>
@@ -175,7 +187,7 @@ class App extends Component {
           </div>
         </div>
       </section>
-        
+
       <NameInput
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
       />
@@ -188,20 +200,20 @@ class App extends Component {
             <h2 class="subtitle"> Hi {this.state.name}! Please help us send your name to our website using code! </h2>
             {segment}
 
-          </div>          
-          
+          </div>
+
           </section>
 
- 
+
         <RequestDemo/>
         <SocketDemo name={this.state.name}/>
 
-        <OnlineDemo others={this.state.others} name={this.state.name}/>
+        <OnlineDemo others={this.state.others} name={this.state.name} socket={this.socket} receivedMessages={this.state.receivedMessages}/>
         <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            Built by UCLA's ACM TeachLA! 
-            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>, <a href="https://alain.xyz/libraries/react-anime"><strong>React-Anime</strong></a>. 
+            Built by UCLA's ACM TeachLA!
+            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>, <a href="https://alain.xyz/libraries/react-anime"><strong>React-Anime</strong></a>.
           </p>
         </div>
       </footer>
