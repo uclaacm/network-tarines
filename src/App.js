@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import Anime from 'react-anime';
 import './App.sass';
 import './App.css';
-import NameInput from '../NameInput/NameInput';
-import CodeSegment from '../../CodeSegment';
-import '../../../node_modules/font-awesome/css/font-awesome.min.css';
-import RequestDemo from '../../RequestDemo';
-import SocketDemo from '../SocketDemo/SocketDemo';
-import OnlineDemo from '../OnlineDemo/OnlineDemo';
+import NameInput from './NameInput/NameInput';
+import CodeSegment from './CodeSegment';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
+import RequestDemo from './RequestDemo';
+import SocketDemo from './SocketDemo';
+import OnlineDemo from './OnlineDemo';
+import QuestMap from './QuestMap';
 import io from 'socket.io-client';
-import LessonCatalog from '../LessonCatalog';
-import Header from '../Header/Header';
-import RequestRecap from '../RequestLesson/RequestRecap';
 
 class App extends Component {
   constructor(props){
@@ -162,40 +161,59 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Header/>
+      <section id="intro" class="hero is-warning is-fullheight">
+        <div class="hero-head">
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={500}>
+            <h1 class="title is-1" style={{padding: '20px'}}>Websites on the Internet</h1>
+            </Anime>
+        </div>
+        <div class="hero-body">
+          <div class="container">
+          <Anime opacity={[0, 1]} translateY={'1em'} delay={(e, i) => i * 1300}>
 
-       
-        <LessonCatalog></LessonCatalog>
+          <QuestMap/>
+            <h1 class="title" style={{padding: '10px'}}>
+              Hey there!
+            </h1>
 
-        {/* TO BE REPLACED: */}
-        {segment} 
+            <h2 class="subtitle">
+            The internet can be a scary place, so <a href="https://teachla.uclaacm.com/">we</a>’re here to help you figure out how it works.
+            Are you ready? </h2>
 
-        <RequestRecap/>
-        <NameInput
+            <div className="buttons is-centered" style={{padding: '20px'}}>
+                <a className="button is-link is-rounded is-large" href="#NameInput">Let's go!</a>
+              </div>
+          </Anime>
+          </div>
+        </div>
+      </section>
+
+      <NameInput
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
-        />
+      />
 
-     
 
       <div class="container">
       </div>
           <section id="CodeSection" class="section">
             <div class="container">
             <h2 class="subtitle"> Hi {this.state.name}! Please help us send your name to our website using code! </h2>
+            {segment}
 
           </div>
 
           </section>
 
- 
+
+        <RequestDemo/>
         <SocketDemo name={this.state.name}/>
 
         <OnlineDemo others={this.state.others} name={this.state.name} socket={this.socket} receivedMessages={this.state.receivedMessages}/>
         <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            Built by UCLA's ACM TeachLA! 
-            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>, <a href="https://alain.xyz/libraries/react-anime"><strong>React-Anime</strong></a>, and everything nice. 
+            Built by UCLA's ACM TeachLA!
+            Uses  <a href="https://bulma.io/"><strong>Bulma</strong></a>, <a href="https://alain.xyz/libraries/react-anime"><strong>React-Anime</strong></a>.
           </p>
         </div>
       </footer>
