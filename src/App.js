@@ -14,7 +14,7 @@ import io from 'socket.io-client';
 class App extends Component {
   constructor(props){
     super(props);
-    this.socket = io("http://localhost")
+    this.socket = io("https://network-tarines-backend.herokuapp.com/")
     this.start_socket()
 
     this.handleNextClick = this.handleNextClick.bind(this);
