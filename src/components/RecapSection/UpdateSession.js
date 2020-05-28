@@ -6,12 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 class UpdateSession extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      currStep: 1,
-      stepDelays: [500, 500, 2000, 4000, 3000],
-      
-
-    }
     }
 
     renderMessage = (message) =>
@@ -51,13 +45,13 @@ class UpdateSession extends React.Component {
               <div class="hero-body" >
               <div class="columns is-mobile is-centered">
               <div class="column">
-              <Anime opacity={[0, 1]} translateY={(e, i) =>(i+1)*40} delay={(e, i) => i * 2000}>                 
+              <Anime opacity={[0, 1]} translateY={(e, i) =>(i+1)*40-120} delay={(e, i) => i * 2000}>                 
               {msg_left}
                 </Anime>
               </div>
 
               <div class="column">
-              <Anime opacity={[0, 1]} translateY={(e, i) =>(i+1)*40+40} delay={(e, i) => i * 2000 + 1000}>                  
+              <Anime opacity={[0, 1]} translateY={(e, i) =>(i+1)*40-80} delay={(e, i) => i * 2000 + 1000}>                  
               {msg_right}
                 </Anime>
               </div>

@@ -36,7 +36,11 @@
   width: 90%;
 }  
 
-
+.updateTextContainer{
+  margin: auto;
+  position: relative;
+  width: 800px;
+}
 
 .requestContainer {
   height: 400px;
