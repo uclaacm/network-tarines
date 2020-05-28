@@ -10,6 +10,7 @@ import SocketDemo from './SocketDemo';
 import OnlineDemo from './OnlineDemo';
 import QuestMap from './QuestMap';
 import io from 'socket.io-client';
+import Recap from './components/RecapSection/Recap';
 
 class App extends Component {
   constructor(props){
@@ -187,7 +188,7 @@ class App extends Component {
           </div>
         </div>
       </section>
-
+     <Recap/>
       <NameInput
           handleNameSubmit={(name) => this.handleNameSubmit(name)}
       />

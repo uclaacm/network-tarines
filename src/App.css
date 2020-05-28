@@ -2,13 +2,7 @@
   text-align: center;
 }
 
-.message {
-  height: 35px;
-  width: 35px;
-  border-radius: 50%;
-  background-color:#fa7c91;
-  text-align:center;
-}
+
 
 .code{
   text-align: left;
