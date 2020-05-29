@@ -8,7 +8,7 @@ class Recap extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-          currStep: 1,
+          currStep: 5,
           stepDelays: [500, 500, 2000, 4000, 3000],
           subtitles: ["In case you forgot: What is the internet? It’s a way for computers to connect to other computers.",
             "Every time your computer wants information, it makes an HTTP Request.",
@@ -17,7 +17,7 @@ class Recap extends React.Component {
             "Sometimes, we want live updates, which means bothering the website with lots of requests.",
         ],
           txts1: ["Can I order 50 packs of instant ramen?", "Ok.", "Add a ukulele to my cart?", "Ok."],
-          txts2: ["Any updates yet?", "No", "How about now?", "No", "Now?", "Yes, you have 1 message", "Any more updates?", "No"],
+          txts2: ["Any updates yet?", "No", "How about now?", "No", "Now?", "Yes, you have 1 message", "Any more updates?"],
         }
     }
 
@@ -40,7 +40,6 @@ class Recap extends React.Component {
   }
 
   //buttons
-
   prevButton() {
     let currStep = this.state.currStep;
     if(currStep !== 1){
@@ -63,11 +62,35 @@ class Recap extends React.Component {
       )
     }
     return(
-      <Anime easing="linear" loop={true} direction="alternate" opacity={['100%', '20%']}>
-      <FontAwesomeIcon icon={faChevronDown} size="2x" transform="" ></FontAwesomeIcon>
-      </Anime>
+        <a className="button is-rounded is-primary">         
+          How can we stop this?
+        </a>
     );
   }    
+
+  renderLastStep = () => {
+      if(this.state.currStep == 5)
+      {
+      return(
+        <div class="columns is-mobile is-centered">
+        <div class="column">       
+        </div>
+
+        <div class="column">
+            <article class="message is-warning">
+            <div class="message-header">
+                This can crash our website!
+                <button class="button is-loading is-warning"></button>
+            </div>
+        </article>
+        </div>
+      
+      </div>
+       
+      )
+      }
+      return null;
+  }
 
 
     renderBackdrop = (updateSession) => {
@@ -87,16 +110,38 @@ class Recap extends React.Component {
                 <FontAwesomeIcon icon={faBroadcastTower} size="5x" style={{position: 'absolute', left: '380px', top: '20px'}}/>
                 <FontAwesomeIcon icon={faServer} size="9x" className="serverContainer" style={{position: 'absolute', right: '40px', top: '80px'}}/>                
             </div>
-            <div className="updateTextContainer">
-            {updateSession}
+            {/* <div className="updateTextContainer"> */}
+
+            <div class="columns is-mobile is-centered">
+              <div class="column">
+            
+             <p>prev button</p>
+              </div>
+              <div class="column">
+              {updateSession}
+              {this.renderLastStep()}
+              </div>
+
+              <div class="column">
+              <p>next button</p>
+              </div>
+            
+            </div>
+            <div>
+                
             </div>
             </React.Fragment>
         )
     }
     render() {
+        let text = this.state.txts2;
+        if(this.state.currStep == 2)
+        {
+            text = this.state.txts1;
+        }       
         return(
             <div class="hero-body" >
-            {this.renderBackdrop(<UpdateSession texts={this.state.txts2}/>)}                 
+                {this.renderBackdrop(<UpdateSession texts={text}/>)}                 
             <div class="columns is-mobile is-centered">
               <div class="column">
               {this.prevButton()}
